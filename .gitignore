@@ -1,0 +1,7 @@
+*.log
+*.csv
+*.parquet
+raw/
+.venv/
+__pycache__/
+.env
