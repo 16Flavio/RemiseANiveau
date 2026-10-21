@@ -3,9 +3,17 @@
 Le but de ce répertoire est de me permettre de me remettre à niveau sur plein de compétences pour un ingénieur des données.
 Tout sera fait sans IA générative.
 
-# Premier script : log_report.sh
+## Premiers scripts : log_report.sh et generate_logs.sh
 
-Script bash qui prend un fichier log en entrée et génère un rapport dans le dossier ./processed au format .txt.
+generate_logs.sh est un script bash qui permet de générer des fausses données de logs.
+
+Exemple d'utilisation :
+```bash
+./generate_logs.sh 1000 # génère dans ./raw un fichier log avec 1000 lignes
+```
+
+
+log_report.sh est un script bash qui prend un fichier log en entrée et génère un rapport dans le dossier ./processed au format .txt.
 
 Exemple d'utilisation :
 ```bash
