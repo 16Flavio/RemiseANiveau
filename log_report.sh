@@ -31,23 +31,19 @@ REPORT_FILE="${OUTPUT_DIR}/report_${DATE_STR}.txt"
     echo "Nombre total d'entrées : $TOTAL_LINES"
     echo ""
 
-    echo "--- Répartition par niveau ---"
-    grep -Eo '\b(INFO|WARN|WARNING|ERROR|DEBUG|CRITICAL|FATAL)\b' "$LOG_FILE" \
-        | sort | uniq -c | sort -nr \
-        | awk '{printf "  %-10s : %d\n", $2, $1}' || echo "  Aucun niveau standard détecté"
+   echo "--- Répartition par niveau ---"
+   awk '{print $2}' "$LOG_FILE" | sort | uniq -c | sort -k1,1nr -k2,2 \
+   	| awk '{printf "  %-10s : %d\n", $2, $1}'
+
+    echo "--- Top 3 des IP en erreur ---"
+    awk '$2 == "ERROR" {print $3}' "$LOG_FILE" | sort | uniq -c \
+    	| sort -k1,1nr -k2,2 | head -n 3 \
+    	| awk '{printf "  %-15s : %d\n", $2, $1}'
     echo ""
 
-    echo "--- Top 3 des IP en erreur (ERROR/CRITICAL/FATAL) ---"
-    grep -Ei '\b(ERROR|CRITICAL|FATAL)\b' "$LOG_FILE" \
-        | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' \
-        | sort | uniq -c | sort -nr | head -n 3 \
-        | awk '{printf "  %-15s : %d erreur(s)\n", $2, $1}' || echo "  Aucune IP en erreur trouvée"
-    echo ""
-
-    echo "--- Jour le plus chargé (en terme de lignes) ---"
-    grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2}' "$LOG_FILE" \
-        | sort | uniq -c | sort -nr | head -n 1 \
-        | awk '{printf "  %s (%d entrées)\n", $2, $1}' || echo "  Aucune date au format YYYY-MM-DD détectée"
+    echo "--- Jour le plus chargé ---"
+    awk '{print $1}' "$LOG_FILE" | sort | uniq -c | sort -k1,1nr -k2,2 | head -n 1 \
+    	| awk '{printf "  %s (%d entrées)\n", $2, $1}'
 
     echo "=========================================="
 } | tee "$REPORT_FILE"
