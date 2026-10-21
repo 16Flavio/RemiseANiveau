@@ -21,7 +21,7 @@ REPORT_FILE="${OUTPUT_DIR}/report_${DATE_STR}.txt"
 
 {
     echo "=========================================="
-    echo "         RAPPORT D'ANALYSE DE LOGS        "
+    echo "   RAPPORT D'ANALYSE DE LOGS MOINS COOL   "
     echo "=========================================="
     echo "Fichier analysé : $LOG_FILE"
     echo "Date du rapport : $(date +"%Y-%m-%d %H:%M:%S")"
