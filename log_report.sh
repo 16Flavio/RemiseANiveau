@@ -21,7 +21,7 @@ REPORT_FILE="${OUTPUT_DIR}/report_${DATE_STR}.txt"
 
 {
     echo "=========================================="
-    echo "         RAPPORT D'ANALYSE DE LOGS        "
+    echo "   RAPPORT D'ANALYSE DE LOGS SUPER COOL   "
     echo "=========================================="
     echo "Fichier analysé : $LOG_FILE"
     echo "Date du rapport : $(date +"%Y-%m-%d %H:%M:%S")"
@@ -44,7 +44,7 @@ REPORT_FILE="${OUTPUT_DIR}/report_${DATE_STR}.txt"
         | awk '{printf "  %-15s : %d erreur(s)\n", $2, $1}' || echo "  Aucune IP en erreur trouvée"
     echo ""
 
-    echo "--- Jour le plus chargé ---"
+    echo "--- Jour le plus chargé (en terme de lignes) ---"
     grep -Eo '[0-9]{4}-[0-9]{2}-[0-9]{2}' "$LOG_FILE" \
         | sort | uniq -c | sort -nr | head -n 1 \
         | awk '{printf "  %s (%d entrées)\n", $2, $1}' || echo "  Aucune date au format YYYY-MM-DD détectée"
